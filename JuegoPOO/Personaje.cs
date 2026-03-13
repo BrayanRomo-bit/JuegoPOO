@@ -8,6 +8,7 @@ namespace JuegoPOO
 {
     internal class Personaje
     {
+        // Propiedades comunes a todos los personajes
         public string Nombre { get; set; }
         public int Vida { get; set; }
         public int Ataque { get; set; }
