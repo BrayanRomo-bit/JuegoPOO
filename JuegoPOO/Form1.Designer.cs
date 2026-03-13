@@ -31,7 +31,6 @@
             btnCrear = new Button();
             btnAtacar = new Button();
             btnEspecial = new Button();
-            lblJugador = new Label();
             lblVidaJugador = new Label();
             lblVidaEnemigo = new Label();
             cmbPersonaje = new ComboBox();
@@ -80,15 +79,6 @@
             btnEspecial.Text = "Ataque Especial";
             btnEspecial.UseVisualStyleBackColor = true;
             btnEspecial.Click += btnEspecial_Click;
-            // 
-            // lblJugador
-            // 
-            lblJugador.AutoSize = true;
-            lblJugador.Location = new Point(55, 60);
-            lblJugador.Name = "lblJugador";
-            lblJugador.Size = new Size(62, 20);
-            lblJugador.TabIndex = 3;
-            lblJugador.Text = "Jugador";
             // 
             // lblVidaJugador
             // 
@@ -226,7 +216,6 @@
             Controls.Add(cmbPersonaje);
             Controls.Add(lblVidaEnemigo);
             Controls.Add(lblVidaJugador);
-            Controls.Add(lblJugador);
             Controls.Add(btnEspecial);
             Controls.Add(btnAtacar);
             Controls.Add(btnCrear);
@@ -245,7 +234,6 @@
         private Button btnCrear;
         private Button btnAtacar;
         private Button btnEspecial;
-        private Label lblJugador;
         private Label lblVidaJugador;
         private Label lblVidaEnemigo;
         private ComboBox cmbPersonaje;

@@ -79,10 +79,10 @@ namespace JuegoPOO
             }
 
             pbEnemigo.Image = Properties.Resources.Chuerk;
-            Enemigo = new Guerrero("chuerk", 100, 25, 40);
+            Enemigo = new Enemigo("chuerk", 100, 25, 40);
             MessageBox.Show($"Has creado a {Jugador.Nombre} y te enfrentarás a {Enemigo.Nombre}.");
 
-            // Preparar barras de vida
+           
             pbVidaJugador.Maximum = Math.Max(Jugador.Vida, Enemigo.Vida);
             pbVidaEnemigo.Maximum = Math.Max(Jugador.Vida, Enemigo.Vida);
             lblVidaEnemigo.Text = $"{Enemigo.Nombre} - Vida: {Enemigo.Vida}";
@@ -90,7 +90,7 @@ namespace JuegoPOO
             pbVidaEnemigo.Value = Enemigo.Vida;
             pbVidaJugador.Value = Jugador.Vida;
 
-            // Reiniciar Rondas
+            
             rondaActual = 1;
             lblRound.Text = $"Round: {rondaActual}";
             txtLog.Clear();
@@ -134,6 +134,7 @@ namespace JuegoPOO
 
         private async void btnEspecial_Click(object sender, EventArgs e)
         {
+            //se hace async para poder usar await Task.Delay() y mostrar la animación del ataque especial
             txtLog.Clear();
 
             Image imagenOriginal = pbJugador.Image;
