@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JuegoPOO
-{
+{ 
     internal class Personaje
     {
         // Propiedades comunes a todos los personajes

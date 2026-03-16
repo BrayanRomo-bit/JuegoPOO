@@ -43,16 +43,19 @@
             btnCurar = new Button();
             lblroundescription = new Label();
             lblRound = new Label();
+            pbDefensaEnemigo = new ProgressBar();
+            pbDefensaJugador = new ProgressBar();
+            label1 = new Label();
+            btnAbandonar = new Button();
             ((System.ComponentModel.ISupportInitialize)pbJugador).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbEnemigo).BeginInit();
             SuspendLayout();
             // 
             // btnCrear
             // 
-            btnCrear.Location = new Point(650, 537);
-            btnCrear.Margin = new Padding(3, 4, 3, 4);
+            btnCrear.Location = new Point(569, 380);
             btnCrear.Name = "btnCrear";
-            btnCrear.Size = new Size(110, 31);
+            btnCrear.Size = new Size(121, 23);
             btnCrear.TabIndex = 0;
             btnCrear.Text = "Iniciar Partida";
             btnCrear.UseVisualStyleBackColor = true;
@@ -60,10 +63,9 @@
             // 
             // btnAtacar
             // 
-            btnAtacar.Location = new Point(55, 651);
-            btnAtacar.Margin = new Padding(3, 4, 3, 4);
+            btnAtacar.Location = new Point(48, 488);
             btnAtacar.Name = "btnAtacar";
-            btnAtacar.Size = new Size(86, 31);
+            btnAtacar.Size = new Size(75, 23);
             btnAtacar.TabIndex = 1;
             btnAtacar.Text = "Atacar";
             btnAtacar.UseVisualStyleBackColor = true;
@@ -71,10 +73,9 @@
             // 
             // btnEspecial
             // 
-            btnEspecial.Location = new Point(172, 651);
-            btnEspecial.Margin = new Padding(3, 4, 3, 4);
+            btnEspecial.Location = new Point(150, 488);
             btnEspecial.Name = "btnEspecial";
-            btnEspecial.Size = new Size(143, 31);
+            btnEspecial.Size = new Size(125, 23);
             btnEspecial.TabIndex = 2;
             btnEspecial.Text = "Ataque Especial";
             btnEspecial.UseVisualStyleBackColor = true;
@@ -83,63 +84,67 @@
             // lblVidaJugador
             // 
             lblVidaJugador.AutoSize = true;
-            lblVidaJugador.Location = new Point(55, 93);
+            lblVidaJugador.ForeColor = Color.Yellow;
+            lblVidaJugador.Location = new Point(48, 70);
             lblVidaJugador.Name = "lblVidaJugador";
-            lblVidaJugador.Size = new Size(109, 20);
+            lblVidaJugador.Size = new Size(85, 15);
             lblVidaJugador.TabIndex = 4;
             lblVidaJugador.Text = "lblVidaJugador";
+            lblVidaJugador.Click += lblVidaJugador_Click;
             // 
             // lblVidaEnemigo
             // 
             lblVidaEnemigo.AutoSize = true;
-            lblVidaEnemigo.Location = new Point(688, 93);
+            lblVidaEnemigo.ForeColor = Color.Yellow;
+            lblVidaEnemigo.Location = new Point(541, 70);
             lblVidaEnemigo.Name = "lblVidaEnemigo";
-            lblVidaEnemigo.Size = new Size(115, 20);
+            lblVidaEnemigo.RightToLeft = RightToLeft.Yes;
+            lblVidaEnemigo.Size = new Size(90, 15);
             lblVidaEnemigo.TabIndex = 5;
             lblVidaEnemigo.Text = "lblVidaEnemigo";
             // 
             // cmbPersonaje
             // 
             cmbPersonaje.FormattingEnabled = true;
-            cmbPersonaje.Location = new Point(650, 600);
-            cmbPersonaje.Margin = new Padding(3, 4, 3, 4);
+            cmbPersonaje.Location = new Point(569, 449);
             cmbPersonaje.Name = "cmbPersonaje";
-            cmbPersonaje.Size = new Size(138, 28);
+            cmbPersonaje.Size = new Size(121, 23);
             cmbPersonaje.TabIndex = 6;
+            cmbPersonaje.SelectedIndexChanged += cmbPersonaje_SelectedIndexChanged_1;
             // 
             // pbVidaJugador
             // 
-            pbVidaJugador.Location = new Point(55, 117);
-            pbVidaJugador.Margin = new Padding(3, 4, 3, 4);
+            pbVidaJugador.Location = new Point(48, 88);
             pbVidaJugador.Name = "pbVidaJugador";
-            pbVidaJugador.Size = new Size(114, 31);
+            pbVidaJugador.Size = new Size(235, 23);
             pbVidaJugador.TabIndex = 7;
+            pbVidaJugador.Click += pbVidaJugador_Click;
             // 
             // pbVidaEnemigo
             // 
-            pbVidaEnemigo.Location = new Point(688, 117);
-            pbVidaEnemigo.Margin = new Padding(3, 4, 3, 4);
+            pbVidaEnemigo.Location = new Point(467, 88);
             pbVidaEnemigo.Name = "pbVidaEnemigo";
-            pbVidaEnemigo.Size = new Size(114, 31);
+            pbVidaEnemigo.RightToLeft = RightToLeft.Yes;
+            pbVidaEnemigo.RightToLeftLayout = true;
+            pbVidaEnemigo.Size = new Size(235, 23);
             pbVidaEnemigo.TabIndex = 8;
+            pbVidaEnemigo.UseWaitCursor = true;
             // 
             // txtLog
             // 
-            txtLog.Location = new Point(55, 528);
-            txtLog.Margin = new Padding(3, 4, 3, 4);
+            txtLog.Location = new Point(48, 380);
             txtLog.Multiline = true;
             txtLog.Name = "txtLog";
             txtLog.ScrollBars = ScrollBars.Vertical;
-            txtLog.Size = new Size(569, 100);
+            txtLog.Size = new Size(498, 92);
             txtLog.TabIndex = 9;
             // 
             // btnTurnoEnemigo
             // 
             btnTurnoEnemigo.Enabled = false;
-            btnTurnoEnemigo.Location = new Point(481, 651);
-            btnTurnoEnemigo.Margin = new Padding(3, 4, 3, 4);
+            btnTurnoEnemigo.Location = new Point(421, 488);
             btnTurnoEnemigo.Name = "btnTurnoEnemigo";
-            btnTurnoEnemigo.Size = new Size(143, 31);
+            btnTurnoEnemigo.Size = new Size(125, 23);
             btnTurnoEnemigo.TabIndex = 10;
             btnTurnoEnemigo.Text = "Turno del Enemigo";
             btnTurnoEnemigo.UseVisualStyleBackColor = true;
@@ -147,31 +152,32 @@
             // 
             // pbJugador
             // 
+            pbJugador.BackColor = Color.Transparent;
             pbJugador.BackgroundImageLayout = ImageLayout.Stretch;
-            pbJugador.Location = new Point(55, 229);
-            pbJugador.Margin = new Padding(3, 4, 3, 4);
+            pbJugador.Location = new Point(48, 198);
             pbJugador.Name = "pbJugador";
-            pbJugador.Size = new Size(203, 219);
-            pbJugador.SizeMode = PictureBoxSizeMode.Zoom;
+            pbJugador.Size = new Size(178, 164);
+            pbJugador.SizeMode = PictureBoxSizeMode.StretchImage;
             pbJugador.TabIndex = 11;
             pbJugador.TabStop = false;
             // 
             // pbEnemigo
             // 
             pbEnemigo.BackgroundImageLayout = ImageLayout.Center;
-            pbEnemigo.Location = new Point(599, 229);
-            pbEnemigo.Margin = new Padding(3, 4, 3, 4);
+            pbEnemigo.Location = new Point(524, 198);
             pbEnemigo.Name = "pbEnemigo";
-            pbEnemigo.Size = new Size(203, 219);
-            pbEnemigo.SizeMode = PictureBoxSizeMode.Zoom;
+            pbEnemigo.Size = new Size(178, 164);
+            pbEnemigo.SizeMode = PictureBoxSizeMode.StretchImage;
             pbEnemigo.TabIndex = 12;
             pbEnemigo.TabStop = false;
+            pbEnemigo.Click += pbEnemigo_Click;
             // 
             // btnCurar
             // 
-            btnCurar.Location = new Point(354, 653);
+            btnCurar.Location = new Point(310, 490);
+            btnCurar.Margin = new Padding(3, 2, 3, 2);
             btnCurar.Name = "btnCurar";
-            btnCurar.Size = new Size(94, 29);
+            btnCurar.Size = new Size(82, 22);
             btnCurar.TabIndex = 13;
             btnCurar.Text = "Curar";
             btnCurar.UseVisualStyleBackColor = true;
@@ -182,28 +188,74 @@
             lblroundescription.AutoSize = true;
             lblroundescription.Font = new Font("Showcard Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblroundescription.ForeColor = Color.Red;
-            lblroundescription.Location = new Point(354, 60);
+            lblroundescription.Location = new Point(310, 45);
             lblroundescription.Name = "lblroundescription";
-            lblroundescription.Size = new Size(144, 37);
+            lblroundescription.Size = new Size(113, 30);
             lblroundescription.TabIndex = 14;
             lblroundescription.Text = "Rounds";
             // 
             // lblRound
             // 
             lblRound.AutoSize = true;
-            lblRound.Location = new Point(398, 97);
+            lblRound.BackColor = Color.Transparent;
+            lblRound.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblRound.ForeColor = Color.Yellow;
+            lblRound.Location = new Point(330, 86);
             lblRound.Name = "lblRound";
-            lblRound.Size = new Size(0, 20);
+            lblRound.Size = new Size(0, 25);
             lblRound.TabIndex = 15;
+            // 
+            // pbDefensaEnemigo
+            // 
+            pbDefensaEnemigo.BackColor = Color.Red;
+            pbDefensaEnemigo.Location = new Point(524, 117);
+            pbDefensaEnemigo.Name = "pbDefensaEnemigo";
+            pbDefensaEnemigo.RightToLeft = RightToLeft.Yes;
+            pbDefensaEnemigo.RightToLeftLayout = true;
+            pbDefensaEnemigo.Size = new Size(178, 23);
+            pbDefensaEnemigo.TabIndex = 16;
+            // 
+            // pbDefensaJugador
+            // 
+            pbDefensaJugador.Location = new Point(48, 117);
+            pbDefensaJugador.Name = "pbDefensaJugador";
+            pbDefensaJugador.Size = new Size(178, 23);
+            pbDefensaJugador.TabIndex = 17;
+            pbDefensaJugador.Click += progressBar2_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.Red;
+            label1.Location = new Point(254, 342);
+            label1.Name = "label1";
+            label1.Size = new Size(53, 21);
+            label1.TabIndex = 18;
+            label1.Text = "label1";
+            label1.Click += label1_Click;
+            // 
+            // btnAbandonar
+            // 
+            btnAbandonar.Location = new Point(569, 420);
+            btnAbandonar.Name = "btnAbandonar";
+            btnAbandonar.Size = new Size(121, 23);
+            btnAbandonar.TabIndex = 19;
+            btnAbandonar.Text = "Abandonar Partida";
+            btnAbandonar.UseVisualStyleBackColor = true;
+            btnAbandonar.Click += button1_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Snow;
-            BackgroundImage = Properties.Resources.castillo1;
+            BackColor = Color.Black;
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(914, 739);
+            ClientSize = new Size(800, 554);
+            Controls.Add(btnAbandonar);
+            Controls.Add(label1);
+            Controls.Add(pbDefensaJugador);
+            Controls.Add(pbDefensaEnemigo);
             Controls.Add(lblRound);
             Controls.Add(lblroundescription);
             Controls.Add(btnCurar);
@@ -219,7 +271,6 @@
             Controls.Add(btnEspecial);
             Controls.Add(btnAtacar);
             Controls.Add(btnCrear);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
@@ -246,5 +297,9 @@
         private Button btnCurar;
         private Label lblroundescription;
         private Label lblRound;
+        private ProgressBar pbDefensaEnemigo;
+        private ProgressBar pbDefensaJugador;
+        private Label label1;
+        private Button btnAbandonar;
     }
 }
