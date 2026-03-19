@@ -24,6 +24,14 @@ namespace JuegoPOO
             btnTurnoEnemigo.Enabled = false;
             btnAtacar.Enabled = false;
             btnAbandonar.Enabled = false;
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -37,22 +45,22 @@ namespace JuegoPOO
             switch (cmbPersonaje.Text)
             {
                 case "Guerrero":
-                    pbJugador.Image = Properties.Resources.gokubase1;
-                    Jugador = new Guerrero("koku", 150, 20, 50);
+                    pbJugador.Image = Properties.Resources.goku;
+                    Jugador = new Guerrero("koku", 150, 25, 50);
                     txtLog.Clear();
-                    txtLog.AppendText($"{Jugador.Nombre} - Vida: {Jugador.Vida} - Defensa: {Jugador.Defensa}");
+                    txtLog.AppendText($"{Jugador.Nombre} - Vida: {Jugador.Vida} -Ataque {Jugador.Ataque} - Defensa: {Jugador.Defensa} ");
                     break;
                 case "Arquero":
-                    pbJugador.Image = Properties.Resources.Jokai;
-                    Jugador = new Arquero("jokai", 100, 35, 30);
+                    pbJugador.Image = Properties.Resources.arquero;
+                    Jugador = new Arquero("jokai", 100, 40, 30);
                     txtLog.Clear();
-                    txtLog.AppendText($"{Jugador.Nombre} - Vida: {Jugador.Vida} - Defensa: {Jugador.Defensa} ");
+                    txtLog.AppendText($"{Jugador.Nombre} - Vida: {Jugador.Vida}  -Ataque {Jugador.Ataque} - Defensa: {Jugador.Defensa} ");
                     break;
                 case "Mago":
                     pbJugador.Image = Properties.Resources.Magito;
                     Jugador = new Mago("grifindor", 70, 20, 50);
                     txtLog.Clear();
-                    txtLog.AppendText($" {Jugador.Nombre} - Vida: {Jugador.Vida} - Defensa: {Jugador.Defensa} ");
+                    txtLog.AppendText($" {Jugador.Nombre} - Vida: {Jugador.Vida}  -Ataque {Jugador.Ataque} - Defensa: {Jugador.Defensa} ");
                     txtLog.AppendText($"\nEl Mago tiene la habilidad de curarse, pero solo puede usarla 3 veces por round.\n");
                     break;
                 default:
@@ -79,7 +87,7 @@ namespace JuegoPOO
                 return;
             }
 
-            pbEnemigo.Image = Properties.Resources.Chuerk;
+            pbEnemigo.Image = Properties.Resources.chuerk_png;
             Enemigo = new Enemigo("chuerk", 100, 25, 40);
             MessageBox.Show($"Has creado a {Jugador.Nombre} y te enfrentarás a {Enemigo.Nombre}.");
 
@@ -100,6 +108,12 @@ namespace JuegoPOO
             btnTurnoEnemigo.Enabled = false;
             btnCrear.Enabled = false;
             btnAbandonar.Enabled = true;
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
         }
 
         private void btnAtacar_Click(object sender, EventArgs e)
@@ -163,9 +177,15 @@ namespace JuegoPOO
                 especialAcumulada++;
                 turnoActual = 0;
                 label1.Text = $"Especiales acumulados: {especialAcumulada}";
+
             }
 
-
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
         }
         private async void btnEspecial_Click(object sender, EventArgs e)
         {
@@ -234,23 +254,25 @@ namespace JuegoPOO
                     PasarTurnoAEnemigo();
                 }
 
-                // Al final del ataque, restamos el especial y actualizamos el label
                 especialAcumulada--;
                 label1.Text = $"Especiales acumulados: {especialAcumulada}";
             }
             else
             {
-                // Si especialAcumulada es 0, mostramos la advertencia.
-                // Usamos las llaves { } para agrupar estas dos acciones correctamente.
                 label1.Text = $"Especiales acumulados: {especialAcumulada}";
                 MessageBox.Show("No tienes ataques especiales acumulados. Realiza más ataques normales para acumularlos.");
             }
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
         }
 
         private void btnCurar_Click(object sender, EventArgs e)
         {
             txtLog.Clear();
-            
             if (Jugador.Defensa == pbDefensaJugador.Maximum && Jugador.Vida == pbVidaEnemigo.Maximum)
             {
                 txtLog.AppendText($" \n{Jugador.Nombre} ya tiene la defensa al máximo y no puede curarse.\n ");
@@ -313,10 +335,17 @@ namespace JuegoPOO
                 turnoActual = 0;
                 label1.Text = $"Especiales acumulados: {especialAcumulada}";
             }
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
         }
 
         private void btnTurno_Click(object sender, EventArgs e)
         {
+
             txtLog.Clear();
             int dañoE = Enemigo.Ataque;
             if (dañoE < 0) dañoE = 0;
@@ -372,6 +401,12 @@ namespace JuegoPOO
                 btnCurar.Enabled = true;
                 btnTurnoEnemigo.Enabled = false;
             }
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
         }
         private void AvanzarRound()
         {
@@ -414,11 +449,20 @@ namespace JuegoPOO
                         int curasobrante = Jugador.Defensa + curaxround - pbDefensaJugador.Maximum;
                         Jugador.Defensa = pbDefensaJugador.Maximum;
                         Jugador.Vida = Jugador.Vida + curasobrante;
+                        if (Jugador.Vida > pbVidaJugador.Maximum) Jugador.Vida = pbVidaJugador.Maximum;
                     }
                     else if (Jugador.Defensa + curaxround == pbDefensaJugador.Maximum)
                         Jugador.Defensa = Jugador.Defensa + curaxround;
+                        
 
                 }
+
+                ActualizarColorBoton(btnAtacar);
+                ActualizarColorBoton(btnEspecial);
+                ActualizarColorBoton(btnCurar);
+                ActualizarColorBoton(btnTurnoEnemigo);
+                ActualizarColorBoton(btnCrear);
+                ActualizarColorBoton(btnAbandonar);
             }
 
 
@@ -441,7 +485,6 @@ namespace JuegoPOO
                 btnCurar.Enabled = true;
                 btnCurar.Visible = true;
 
-
         }
 
         private void PasarTurnoAEnemigo()
@@ -450,6 +493,12 @@ namespace JuegoPOO
             btnEspecial.Enabled = false;
             btnCurar.Enabled = false;
             btnTurnoEnemigo.Enabled = true;
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
         }
 
         private void FinalizarJuego()
@@ -459,6 +508,12 @@ namespace JuegoPOO
             btnCurar.Enabled = false;
             btnTurnoEnemigo.Enabled = false;
             btnCrear.Enabled = true;
+            ActualizarColorBoton(btnAtacar);
+            ActualizarColorBoton(btnEspecial);
+            ActualizarColorBoton(btnCurar);
+            ActualizarColorBoton(btnTurnoEnemigo);
+            ActualizarColorBoton(btnCrear);
+            ActualizarColorBoton(btnAbandonar);
             rondaActual = 1;
             turnoActual = 0;
             especialAcumulada = 0;
@@ -470,18 +525,18 @@ namespace JuegoPOO
             Jugador.Defensa= pbDefensaJugador.Maximum;
             lblVidaJugador.Text = $"{Jugador.Nombre} - Vida: {Jugador.Vida} -Defensa {Jugador.Defensa}";
         }
+        private void ActualizarColorBoton(Button btn)
+        {
+            if (!btn.Enabled)
+            {
+                btn.BackColor = Color.Gray;  
+            }
+            else
+            {
+                btn.BackColor = Color.White;  
+            }
 
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 

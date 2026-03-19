@@ -163,6 +163,7 @@
             // 
             // pbEnemigo
             // 
+            pbEnemigo.BackColor = Color.Transparent;
             pbEnemigo.BackgroundImageLayout = ImageLayout.Center;
             pbEnemigo.Location = new Point(524, 198);
             pbEnemigo.Name = "pbEnemigo";

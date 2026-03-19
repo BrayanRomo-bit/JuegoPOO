@@ -63,6 +63,16 @@ namespace JuegoPOO.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap arquero {
+            get {
+                object obj = ResourceManager.GetObject("arquero", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap castillo1 {
             get {
                 object obj = ResourceManager.GetObject("castillo1", resourceCulture);
@@ -73,9 +83,9 @@ namespace JuegoPOO.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Chuerk {
+        internal static System.Drawing.Bitmap chuerk_png {
             get {
-                object obj = ResourceManager.GetObject("Chuerk", resourceCulture);
+                object obj = ResourceManager.GetObject("chuerk_png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +93,9 @@ namespace JuegoPOO.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap gokubase1 {
+        internal static System.Drawing.Bitmap goku {
             get {
-                object obj = ResourceManager.GetObject("gokubase1", resourceCulture);
+                object obj = ResourceManager.GetObject("goku", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,16 +106,6 @@ namespace JuegoPOO.Properties {
         internal static System.Drawing.Bitmap gokuespecial {
             get {
                 object obj = ResourceManager.GetObject("gokuespecial", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Jokai {
-            get {
-                object obj = ResourceManager.GetObject("Jokai", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

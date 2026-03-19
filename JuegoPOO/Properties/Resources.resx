@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Jokai" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Jokai.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Magito" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Magito.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Chuerk" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Chuerk.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="castillo1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\castillo1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gokuespecial" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gokuespecial.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="gokubase1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gokubase1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="goku" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\goku.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chuerk_png" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chuerk_png-removebg-preview.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arquero" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arquero.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Magito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Magito.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
