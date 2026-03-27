@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JuegoPOO
-{ 
+﻿namespace JuegoPOO
+{
     internal class Personaje
     {
         // Propiedades comunes a todos los personajes

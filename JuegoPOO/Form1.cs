@@ -1,8 +1,3 @@
-using System;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 namespace JuegoPOO
 {
     public partial class Form1 : Form
@@ -11,8 +6,8 @@ namespace JuegoPOO
         Personaje Enemigo;
         int rondaActual = 1;
         int turnoActual = 0;
-        int especialAcumulada =0;
-        int curarclick =0;
+        int especialAcumulada = 5;
+        int curarclick = 0;
         int PuntoEnemigo = 0;
         int PuntoJugador = 0;
 
@@ -27,10 +22,9 @@ namespace JuegoPOO
             ActualizarColorBoton(btnAtacar);
             ActualizarColorBoton(btnEspecial);
             ActualizarColorBoton(btnCurar);
-            ActualizarColorBoton(btnTurnoEnemigo);
             ActualizarColorBoton(btnCrear);
             ActualizarColorBoton(btnAbandonar);
-
+            ActualizarColorBoton(btnTurnoEnemigo);
 
         }
 
@@ -102,73 +96,38 @@ namespace JuegoPOO
             lblRound.Text = $"Round: {rondaActual}";
             txtLog.Clear();
 
-            btnAtacar.Enabled = true;
-            btnEspecial.Enabled = true;
-            btnCurar.Enabled = true;
-            btnTurnoEnemigo.Enabled = false;
-            btnCrear.Enabled = false;
-            btnAbandonar.Enabled = true;
-            ActualizarColorBoton(btnAtacar);
-            ActualizarColorBoton(btnEspecial);
-            ActualizarColorBoton(btnCurar);
-            ActualizarColorBoton(btnTurnoEnemigo);
+            PasarTurno();
+            btnTurnoEnemigo.Enabled = !btnTurnoEnemigo.Enabled;
+            btnCrear.Enabled = !btnCrear.Enabled;
+            btnAbandonar.Enabled = !btnAbandonar.Enabled;
             ActualizarColorBoton(btnCrear);
             ActualizarColorBoton(btnAbandonar);
+            ActualizarColorBoton(btnTurnoEnemigo);
         }
 
         private void btnAtacar_Click(object sender, EventArgs e)
         {
             txtLog.Clear();
-            int daño = Jugador.Ataque;
-            if (daño < 0) daño = 0;
-            if (Enemigo.Defensa != 0)
-            {
-                if (daño > Enemigo.Defensa)
-                {
-                    int dañoSobrante = daño - Enemigo.Defensa;
-                    Enemigo.Defensa = 0;
-                    Enemigo.Vida = Enemigo.Vida - dañoSobrante;
-                }
-                else if (daño < Enemigo.Defensa)
-                {
-                    if (daño < 0) daño = 0;
-                    Enemigo.Defensa = Enemigo.Defensa - daño;
-                }
-                else if (daño == Enemigo.Defensa)
-                {
-                    Enemigo.Defensa = 0;
-                }
-            }
-            else
-            {
-                if (daño < 0) daño = 0;
-                Enemigo.Vida = Enemigo.Vida - daño;
-                if (Enemigo.Vida < 0) Enemigo.Vida = 0;
-                txtLog.AppendText($"\n{Jugador.Nombre} ataca a {Enemigo.Nombre} e inflige {daño} puntos de daño.\n");
-            }
-
-
-            lblVidaEnemigo.Text = $" {Enemigo.Nombre} - Vida: {Enemigo.Vida} - Defensa: {Enemigo.Defensa}";
-            pbVidaEnemigo.Value = Enemigo.Vida;
-            pbDefensaEnemigo.Value = Enemigo.Defensa;
+            AplicarDaño(Jugador.Ataque, Enemigo, pbVidaEnemigo, pbDefensaEnemigo);
+            txtLog.AppendText($"{Jugador.Nombre} ataca a {Enemigo.Nombre} y le inflige {Jugador.Ataque}.\r\n");
 
             if (!Jugador.EstaVivo())
             {
                 PuntoEnemigo++;
-                txtLog.AppendText($" \n{Jugador.Nombre} ha sido derrotado por {Enemigo.Nombre}.\n");
-                txtLog.AppendText($" \n{Enemigo.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo} \n");
+                txtLog.AppendText($"{Jugador.Nombre} ha sido derrotado por {Enemigo.Nombre}.\r\n");
+                txtLog.AppendText($"{Enemigo.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo}");
                 AvanzarRound();
             }
             else if (!Enemigo.EstaVivo())
             {
                 PuntoJugador++;
-                txtLog.AppendText($" \n{Enemigo.Nombre} ha sido derrotado por {Jugador.Nombre}.\n");
-                txtLog.AppendText($" \n{Jugador.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo} \n");
+                txtLog.AppendText($"{Enemigo.Nombre} ha sido derrotado por {Jugador.Nombre}.\r\n");
+                txtLog.AppendText($"{Jugador.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo}");
                 AvanzarRound();
             }
             else
             {
-                PasarTurnoAEnemigo();
+                PasarTurno();
             }
 
             turnoActual++;
@@ -179,13 +138,6 @@ namespace JuegoPOO
                 label1.Text = $"Especiales acumulados: {especialAcumulada}";
 
             }
-
-            ActualizarColorBoton(btnAtacar);
-            ActualizarColorBoton(btnEspecial);
-            ActualizarColorBoton(btnCurar);
-            ActualizarColorBoton(btnTurnoEnemigo);
-            ActualizarColorBoton(btnCrear);
-            ActualizarColorBoton(btnAbandonar);
         }
         private async void btnEspecial_Click(object sender, EventArgs e)
         {
@@ -199,59 +151,29 @@ namespace JuegoPOO
                     pbJugador.Image = Properties.Resources.gokuespecial;
                     await Task.Delay(1900);
                 }
-
                 pbJugador.Image = imagenOriginal;
 
-                int dañoEspecial = Jugador.Ataque * 2;
-                if (dañoEspecial < 0) dañoEspecial = 0;
 
-                if (Enemigo.Defensa != 0)
-                {
-                    if (dañoEspecial > Enemigo.Defensa)
-                    {
-                        int dañoSobrante = dañoEspecial - Enemigo.Defensa;
-                        Enemigo.Defensa = 0;
-                        Enemigo.Vida = Enemigo.Vida - dañoSobrante;
-                    }
-                    else if (dañoEspecial < Enemigo.Defensa)
-                    {
-                        if (dañoEspecial < 0) dañoEspecial = 0;
-                        Enemigo.Defensa = Enemigo.Defensa - dañoEspecial;
-                    }
-                    else if (dañoEspecial == Enemigo.Defensa)
-                    {
-                        Enemigo.Defensa = 0;
-                    }
-                }
-                else
-                {
-                    if (dañoEspecial < 0) dañoEspecial = 0;
-                    Enemigo.Vida = Enemigo.Vida - dañoEspecial;
-                    if (Enemigo.Vida < 0) Enemigo.Vida = 0;
-                    txtLog.AppendText($"\n{Jugador.Nombre} usa un ataque especial contra {Enemigo.Nombre} e inflige {dañoEspecial} puntos de daño.\n");
-                }
-
-                pbVidaEnemigo.Value = Enemigo.Vida;
-                pbDefensaEnemigo.Value = Enemigo.Defensa;
-                lblVidaEnemigo.Text = $" {Enemigo.Nombre} - Vida: {Enemigo.Vida} - Defensa: {Enemigo.Defensa} ";
+                AplicarDaño(Jugador.Ataque * 6, Enemigo, pbVidaEnemigo, pbDefensaEnemigo);
+                txtLog.AppendText($"{Jugador.Nombre} utiliza un ataque especial y le inflige {Jugador.Ataque * 2} puntos de daño a {Enemigo.Nombre}.\r\n");
 
                 if (!Jugador.EstaVivo())
                 {
                     PuntoEnemigo++;
-                    txtLog.AppendText($"\n{Jugador.Nombre} ha sido derrotado por {Enemigo.Nombre}.\n");
-                    txtLog.AppendText($"\n{Enemigo.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo} \n");
+                    txtLog.AppendText($"{Jugador.Nombre} ha sido derrotado por {Enemigo.Nombre}.\r\n");
+                    txtLog.AppendText($"{Enemigo.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo}\r\n");
                     AvanzarRound();
                 }
                 else if (!Enemigo.EstaVivo())
                 {
                     PuntoJugador++;
-                    txtLog.AppendText($"\n{Enemigo.Nombre} ha sido derrotado por {Jugador.Nombre}.\n");
-                    txtLog.AppendText($"\n{Jugador.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo} \n");
+                    txtLog.AppendText($"{Enemigo.Nombre} ha sido derrotado por {Jugador.Nombre}.\r\n");
+                    txtLog.AppendText($"{Jugador.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo}\r\n");
                     AvanzarRound();
                 }
                 else
                 {
-                    PasarTurnoAEnemigo();
+                    PasarTurno();
                 }
 
                 especialAcumulada--;
@@ -262,20 +184,14 @@ namespace JuegoPOO
                 label1.Text = $"Especiales acumulados: {especialAcumulada}";
                 MessageBox.Show("No tienes ataques especiales acumulados. Realiza más ataques normales para acumularlos.");
             }
-            ActualizarColorBoton(btnAtacar);
-            ActualizarColorBoton(btnEspecial);
-            ActualizarColorBoton(btnCurar);
-            ActualizarColorBoton(btnTurnoEnemigo);
-            ActualizarColorBoton(btnCrear);
-            ActualizarColorBoton(btnAbandonar);
         }
 
         private void btnCurar_Click(object sender, EventArgs e)
         {
             txtLog.Clear();
-            if (Jugador.Defensa == pbDefensaJugador.Maximum && Jugador.Vida == pbVidaEnemigo.Maximum)
-            {
-                txtLog.AppendText($" \n{Jugador.Nombre} ya tiene la defensa al máximo y no puede curarse.\n ");
+            if (Jugador.Defensa==pbDefensaJugador.Maximum && Jugador.Vida==pbVidaJugador.Maximum)
+                {
+                txtLog.AppendText($"{Jugador.Nombre} ya tiene la defensa al máximo y no puede curarse.");
                 return;
             }
 
@@ -296,11 +212,11 @@ namespace JuegoPOO
                 else if (Jugador.Defensa + cura == pbDefensaJugador.Maximum)
                     Jugador.Defensa = Jugador.Defensa + cura;
             }
-            else if (Jugador.Defensa==pbDefensaJugador.Maximum)
-            { 
+            else if (Jugador.Defensa == pbDefensaJugador.Maximum)
+            {
                 Jugador.Vida += cura;
                 if (Jugador.Vida > pbVidaJugador.Maximum)
-                     Jugador.Vida = pbVidaJugador.Maximum;
+                    Jugador.Vida = pbVidaJugador.Maximum;
             }
 
             pbVidaJugador.Value = Jugador.Vida;
@@ -308,105 +224,55 @@ namespace JuegoPOO
             lblVidaJugador.Text = $"{Jugador.Nombre} - Vida: {Jugador.Vida} - Defensa: {Jugador.Defensa} ";
 
             curarclick++;
-            PasarTurnoAEnemigo();
             if (!(Jugador is Mago))
             {
                 if (curarclick == 1)
                 {
-                    btnCurar.Enabled = false;
-                    btnCurar.Visible = false;
-                    txtLog.AppendText($" \n{Jugador.Nombre} no es un Mago y pierde la habilidad de curarse por este round.\n");
-                }
-            }
-            else if ((Jugador is Mago))
-            { 
-            if (curarclick == 3)
-                {
-                    btnCurar.Enabled = false;
-                    btnCurar.Visible = false;
-                    txtLog.AppendText($" \n{Jugador.Nombre} es un Mago y pierde la habilidad de curarse por este round después de usarla 3 veces.\n");
+                    btnCurar.Enabled = !btnCurar.Enabled;
+                    btnCurar.Visible = !btnCurar.Visible;
+                    txtLog.AppendText($"{Jugador.Nombre} no es un Mago y pierde la habilidad de curarse por este round.");
                 }
             }
 
-                turnoActual++;
-            if (turnoActual == 3)
+            else if ((Jugador is Mago))
             {
-                especialAcumulada++;
-                turnoActual = 0;
-                label1.Text = $"Especiales acumulados: {especialAcumulada}";
+                if (curarclick == 3)
+                {
+                    btnCurar.Enabled = !btnCurar.Enabled;
+                    btnCurar.Visible = !btnCurar.Visible;
+                    txtLog.AppendText($"{Jugador.Nombre} es un Mago y pierde la habilidad de curarse por este round después de usarla 3 veces.\r\n");
+                }
             }
-            ActualizarColorBoton(btnAtacar);
-            ActualizarColorBoton(btnEspecial);
-            ActualizarColorBoton(btnCurar);
-            ActualizarColorBoton(btnTurnoEnemigo);
-            ActualizarColorBoton(btnCrear);
-            ActualizarColorBoton(btnAbandonar);
+
+            PasarTurno();
         }
 
         private void btnTurno_Click(object sender, EventArgs e)
         {
 
             txtLog.Clear();
-            int dañoE = Enemigo.Ataque;
-            if (dañoE < 0) dañoE = 0;
-            if (Jugador.Defensa != 0)
-            {
-                if (dañoE > Jugador.Defensa)
-                {
-                    int dañoSobrante = dañoE - Jugador.Defensa;
-                    Jugador.Defensa = 0;
-                    Jugador.Vida = Jugador.Vida - dañoSobrante;
-                }
-                else if (dañoE < Jugador.Defensa)
-                {
-                    if (dañoE < 0) dañoE = 0;
-                    Jugador.Defensa = Jugador.Defensa - dañoE;
-                }
-                else if (dañoE == Jugador.Defensa)
-                {
-                    Jugador.Defensa = 0;
-                }
-            }
-            else
-            {
-                if (dañoE < 0) dañoE = 0;
-                Jugador.Vida = Jugador.Vida - dañoE;
-                if (Jugador.Vida < 0) Jugador.Vida = 0;
-                txtLog.AppendText($"\n{Enemigo.Nombre} ataca a {Jugador.Nombre} e inflige {dañoE} puntos de daño.\n");
-            }
 
-
-            lblVidaJugador.Text = $" {Jugador.Nombre} - Vida: {Jugador.Vida} - Defensa: {Jugador.Defensa}";
-            pbVidaJugador.Value = Jugador.Vida;
-            pbDefensaJugador.Value = Jugador.Defensa;
+            AplicarDaño(Enemigo.Ataque, Jugador, pbVidaJugador, pbDefensaJugador);
+            txtLog.AppendText($"{Enemigo.Nombre} ataca a {Jugador.Nombre} y le inflige {Enemigo.Ataque} puntos de daño.");
 
             if (!Enemigo.EstaVivo())
             {
                 PuntoJugador++;
-                txtLog.AppendText($" \n{Enemigo.Nombre} ha sido derrotado por {Jugador.Nombre}.\n");
-                txtLog.AppendText($" \n{Jugador.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo} \n");
+                txtLog.AppendText($"{Enemigo.Nombre} ha sido derrotado por {Jugador.Nombre}.");
+                txtLog.AppendText($"{Jugador.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo}");
                 AvanzarRound();
             }
             else if (!Jugador.EstaVivo())
             {
                 PuntoEnemigo++;
-                txtLog.AppendText($" \n{Jugador.Nombre} ha sido derrotado por {Enemigo.Nombre}.\n");
-                txtLog.AppendText($" \n{Enemigo.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo} \n");
+                txtLog.AppendText($"{Jugador.Nombre} ha sido derrotado por {Enemigo.Nombre}.\r\n");
+                txtLog.AppendText($"{Enemigo.Nombre} obtiene un punto. Puntuación: {Jugador.Nombre} {PuntoJugador} - {Enemigo.Nombre} {PuntoEnemigo}\r\n");
                 AvanzarRound();
             }
             else
             {
-                btnAtacar.Enabled = true;
-                btnEspecial.Enabled = true;
-                btnCurar.Enabled = true;
-                btnTurnoEnemigo.Enabled = false;
+                PasarTurno();
             }
-            ActualizarColorBoton(btnAtacar);
-            ActualizarColorBoton(btnEspecial);
-            ActualizarColorBoton(btnCurar);
-            ActualizarColorBoton(btnTurnoEnemigo);
-            ActualizarColorBoton(btnCrear);
-            ActualizarColorBoton(btnAbandonar);
         }
         private void AvanzarRound()
         {
@@ -415,31 +281,29 @@ namespace JuegoPOO
                 MessageBox.Show($"Fin del Juego");
                 if (PuntoJugador > PuntoEnemigo)
                 {
-                    MessageBox.Show($"¡{Jugador.Nombre} gana el juego con {PuntoJugador} puntos a {PuntoEnemigo}!\n");
+                    MessageBox.Show($"¡{Jugador.Nombre} gana el juego con {PuntoJugador} puntos a {PuntoEnemigo}!");
                 }
                 else if (PuntoEnemigo > PuntoJugador)
                 {
-                    MessageBox.Show($"¡{Enemigo.Nombre} gana el juego con {PuntoEnemigo} puntos a {PuntoJugador}!\n");
+                    MessageBox.Show($"¡{Enemigo.Nombre} gana el juego con {PuntoEnemigo} puntos a {PuntoJugador}!");
                 }
                 FinalizarJuego();
             }
             else
             {
                 rondaActual++;
+                pbDefensaEnemigo.Maximum = pbDefensaEnemigo.Maximum + 15;
+                pbVidaEnemigo.Maximum = pbVidaEnemigo.Maximum + 15;
                 Enemigo.Vida = pbVidaEnemigo.Maximum;
                 Enemigo.Defensa = pbDefensaEnemigo.Maximum;
-                pbDefensaEnemigo.Maximum = Enemigo.Defensa + 15;
-                pbDefensaEnemigo.Value = Enemigo.Defensa + 15;
-                Enemigo.Defensa = Enemigo.Defensa + 15;
+                int curaxround = 60;
 
-                if (Enemigo.Vida > pbVidaEnemigo.Maximum) pbVidaEnemigo.Maximum = Enemigo.Vida;
                 if (!Jugador.EstaVivo())
                 {
                     Jugador.Vida = pbVidaJugador.Maximum;
                     Jugador.Defensa = pbDefensaJugador.Maximum;
                 }
-                int curaxround = 60;
-                if (Jugador.Defensa != pbDefensaJugador.Maximum)
+                else if (Jugador.Defensa != pbDefensaJugador.Maximum)
                 {
                     if (Jugador.Defensa + curaxround <= pbDefensaJugador.Maximum)
                         Jugador.Defensa = Jugador.Defensa + curaxround;
@@ -453,61 +317,50 @@ namespace JuegoPOO
                     }
                     else if (Jugador.Defensa + curaxround == pbDefensaJugador.Maximum)
                         Jugador.Defensa = Jugador.Defensa + curaxround;
-                        
-
                 }
 
-                ActualizarColorBoton(btnAtacar);
-                ActualizarColorBoton(btnEspecial);
-                ActualizarColorBoton(btnCurar);
-                ActualizarColorBoton(btnTurnoEnemigo);
-                ActualizarColorBoton(btnCrear);
-                ActualizarColorBoton(btnAbandonar);
-            }
-
-
-                lblRound.Text = $"Round: {rondaActual}";
-                txtLog.AppendText($"--- INICIA EL ROUND {rondaActual} ---\n");
-
-                pbVidaJugador.Value = Jugador.Vida;
-                pbDefensaJugador.Value = Jugador.Defensa;
-                lblVidaJugador.Text = $"{Jugador.Nombre} - Vida: {Jugador.Vida} -Defensa {Jugador.Defensa}";
-
-                pbVidaEnemigo.Value = Enemigo.Vida;
-                pbDefensaEnemigo.Value = Enemigo.Defensa;
-                lblVidaEnemigo.Text = $"{Enemigo.Nombre} - Vida: {Enemigo.Vida} - Defensa: {Enemigo.Defensa}";
-
-                btnAtacar.Enabled = true;
-                btnEspecial.Enabled = true;
-                btnCurar.Enabled = true;
-                btnTurnoEnemigo.Enabled = false;
                 curarclick = 0;
                 btnCurar.Enabled = true;
                 btnCurar.Visible = true;
+                ActualizarColorBoton(btnCurar);
+            }
+
+
+            lblRound.Text = $"Round: {rondaActual}";
+            txtLog.AppendText($"--- INICIA EL ROUND {rondaActual} ---.");
+
+            pbVidaJugador.Value = Jugador.Vida;
+            pbDefensaJugador.Value = Jugador.Defensa;
+            lblVidaJugador.Text = $"{Jugador.Nombre} - Vida: {Jugador.Vida} -Defensa {Jugador.Defensa}";
+
+            pbVidaEnemigo.Value = Enemigo.Vida;
+            pbDefensaEnemigo.Value = Enemigo.Defensa;
+            lblVidaEnemigo.Text = $"{Enemigo.Nombre} - Vida: {Enemigo.Vida} - Defensa: {Enemigo.Defensa}";
 
         }
 
-        private void PasarTurnoAEnemigo()
+        private void PasarTurno()
         {
-            btnAtacar.Enabled = false;
-            btnEspecial.Enabled = false;
-            btnCurar.Enabled = false;
-            btnTurnoEnemigo.Enabled = true;
+            btnAtacar.Enabled = !btnAtacar.Enabled;
+            btnEspecial.Enabled = !btnEspecial.Enabled;
+            btnCurar.Enabled = !btnCurar.Enabled;
             ActualizarColorBoton(btnAtacar);
             ActualizarColorBoton(btnEspecial);
             ActualizarColorBoton(btnCurar);
-            ActualizarColorBoton(btnTurnoEnemigo);
             ActualizarColorBoton(btnCrear);
             ActualizarColorBoton(btnAbandonar);
+            btnTurnoEnemigo.Enabled = !btnTurnoEnemigo.Enabled;
+            ActualizarColorBoton(btnTurnoEnemigo);
         }
-
         private void FinalizarJuego()
         {
             btnAtacar.Enabled = false;
             btnEspecial.Enabled = false;
             btnCurar.Enabled = false;
             btnTurnoEnemigo.Enabled = false;
-            btnCrear.Enabled = true;
+            btnCrear.Enabled = false;
+            btnAbandonar.Enabled =false;
+            btnCrear.Enabled = !btnCrear.Enabled;
             ActualizarColorBoton(btnAtacar);
             ActualizarColorBoton(btnEspecial);
             ActualizarColorBoton(btnCurar);
@@ -519,25 +372,62 @@ namespace JuegoPOO
             especialAcumulada = 0;
             PuntoEnemigo = 0;
             PuntoJugador = 0;
+            int curarclick = 0;
             pbDefensaJugador.Value = pbDefensaJugador.Maximum;
             pbVidaJugador.Value = pbVidaJugador.Maximum;
-            Jugador.Vida= pbVidaJugador.Maximum;
-            Jugador.Defensa= pbDefensaJugador.Maximum;
+            Jugador.Vida = pbVidaJugador.Maximum;
+            Jugador.Defensa = pbDefensaJugador.Maximum;
             lblVidaJugador.Text = $"{Jugador.Nombre} - Vida: {Jugador.Vida} -Defensa {Jugador.Defensa}";
         }
         private void ActualizarColorBoton(Button btn)
         {
             if (!btn.Enabled)
             {
-                btn.BackColor = Color.Gray;  
+                btn.BackColor = Color.Gray;
             }
             else
             {
-                btn.BackColor = Color.White;  
+                btn.BackColor = Color.White;
             }
 
         }
 
+        private void AplicarDaño(int daño, Personaje objetivo, ProgressBar pbVidaObjetivo, ProgressBar pbDefensaObjetivo)
+        {
+            if (objetivo.Defensa != 0)
+            {
+                if (daño > objetivo.Defensa)
+                {
+                    int dañoSobrante = daño - objetivo.Defensa;
+                    objetivo.Defensa = 0;
+                    objetivo.Vida = objetivo.Vida - dañoSobrante;
+                }
+                else if (daño < objetivo.Defensa)
+                {
+                    objetivo.Defensa = objetivo.Defensa - daño;
+                }
+                else if (daño == objetivo.Defensa)
+                {
+                    objetivo.Defensa = 0;
+                }
+            }
+            else
+            {
+                objetivo.Vida = objetivo.Vida - daño;
+               
+            }
+            if (objetivo.Vida < 0) objetivo.Vida = 0;
+            pbVidaObjetivo.Value = objetivo.Vida;
+            pbDefensaObjetivo.Value = objetivo.Defensa;
+            if (objetivo == Jugador)
+            {
+                lblVidaJugador.Text = $"{Jugador.Nombre} - Vida: {Jugador.Vida} - Defensa: {Jugador.Defensa} ";
+            }
+            else if (objetivo == Enemigo)
+            {
+                lblVidaEnemigo.Text = $"{Enemigo.Nombre} - Vida: {Enemigo.Vida} - Defensa: {Enemigo.Defensa} ";
+            }
+        }
 
 
 
@@ -566,7 +456,7 @@ namespace JuegoPOO
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnAbandonar_Click(object sender, EventArgs e)
         {
             FinalizarJuego();
             MessageBox.Show("Has abandonado el juego. ¡Gracias por jugar!");

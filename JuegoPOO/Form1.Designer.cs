@@ -244,7 +244,7 @@
             btnAbandonar.TabIndex = 19;
             btnAbandonar.Text = "Abandonar Partida";
             btnAbandonar.UseVisualStyleBackColor = true;
-            btnAbandonar.Click += button1_Click;
+            btnAbandonar.Click += btnAbandonar_Click;
             // 
             // Form1
             // 

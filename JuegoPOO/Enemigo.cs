@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JuegoPOO
+﻿namespace JuegoPOO
 {
-    internal class Enemigo: Personaje
+    internal class Enemigo : Personaje
     {
         public Enemigo(string nombre, int vida, int ataque, int defensa) : base(nombre, vida, ataque, defensa)
         { }
