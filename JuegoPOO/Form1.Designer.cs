@@ -90,7 +90,6 @@
             lblVidaJugador.Size = new Size(85, 15);
             lblVidaJugador.TabIndex = 4;
             lblVidaJugador.Text = "lblVidaJugador";
-            lblVidaJugador.Click += lblVidaJugador_Click;
             // 
             // lblVidaEnemigo
             // 
@@ -118,7 +117,6 @@
             pbVidaJugador.Name = "pbVidaJugador";
             pbVidaJugador.Size = new Size(235, 23);
             pbVidaJugador.TabIndex = 7;
-            pbVidaJugador.Click += pbVidaJugador_Click;
             // 
             // pbVidaEnemigo
             // 
@@ -171,7 +169,6 @@
             pbEnemigo.SizeMode = PictureBoxSizeMode.StretchImage;
             pbEnemigo.TabIndex = 12;
             pbEnemigo.TabStop = false;
-            pbEnemigo.Click += pbEnemigo_Click;
             // 
             // btnCurar
             // 
@@ -222,7 +219,6 @@
             pbDefensaJugador.Name = "pbDefensaJugador";
             pbDefensaJugador.Size = new Size(178, 23);
             pbDefensaJugador.TabIndex = 17;
-            pbDefensaJugador.Click += progressBar2_Click;
             // 
             // label1
             // 
@@ -234,7 +230,6 @@
             label1.Size = new Size(53, 21);
             label1.TabIndex = 18;
             label1.Text = "label1";
-            label1.Click += label1_Click;
             // 
             // btnAbandonar
             // 
